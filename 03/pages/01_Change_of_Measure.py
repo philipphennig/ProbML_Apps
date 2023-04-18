@@ -1,6 +1,5 @@
 import streamlit as st
 from typing import Callable
-from matplotlib_inline.backend_inline import set_matplotlib_formats
 
 from jax import numpy as jnp
 from jax import vmap, value_and_grad
@@ -12,12 +11,11 @@ from jax.scipy.stats import norm
 
 plt.rcParams.update(bundles.beamer_moml())
 plt.rcParams.update({"figure.figsize": (5, 3)})
-set_matplotlib_formats("svg")
 
 st.set_page_config(
     page_title="Change of Measure",
     page_icon="🧊",
-    # layout="wide",
+    layout="wide",
     initial_sidebar_state="expanded",
     menu_items={"About": "(c) Philipp Hennig, 2023"},
 )
@@ -120,4 +118,4 @@ ax.set_xlim([-3, 3])
 ax.set_ylim([-0.1, 3.1])
 ax.legend(loc="center right")
 
-st.pyplot(fig)  # ,dpi=300)
+st.pyplot(fig)
