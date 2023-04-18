@@ -17,12 +17,7 @@ st.set_page_config(
     page_icon="🧊",
     layout="wide",
     initial_sidebar_state="expanded",
-    menu_items={"About": "(c) Philipp Hennig, 2023"},
-    primaryColor="#A51E37",
-    backgroundColor="#FFFFFF",
-    secondaryBackgroundColor="#E1D7C1",
-    textColor="#32414B",
-    font="sans serif",
+    menu_items={"About": "(c) Philipp Hennig, 2023"}
 )
 
 
