@@ -11,7 +11,7 @@ from tueplots.constants.color import rgb
 from jax.scipy.stats import norm, beta
 
 plt.rcParams.update(bundles.beamer_moml())
-plt.rcParams.update({"figure.figsize":(6,3)})
+plt.rcParams.update({"figure.figsize": (6, 3)})
 
 st.set_page_config(
     page_title="Lecture 03",
@@ -20,7 +20,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
     menu_items={"About": "(c) Philipp Hennig, 2023"},
 )
-
+jax.config.update("jax_enable_x64", True)
 
 st.sidebar.header("Inference on Probabilities")
 
@@ -69,7 +69,7 @@ std_p = jnp.sqrt(var_p)
 fig, axs = plt.subplots(1, 2, sharex=True)
 ax = axs[0]
 ax.plot(x, p, label="$p(\pi\mid a,b)$", color=rgb.tue_red)
-ax.fill_between(x, y1=0, y2=p, label="$p(\pi\mid a,b)$",alpha=0.2)
+ax.fill_between(x, y1=0, y2=p, label="$p(\pi\mid a,b)$", alpha=0.2)
 ax.axvline(mean_p, color=rgb.tue_green, label="mean")
 ax.plot([mean_p - std_p, mean_p + std_p], [0.8, 0.8], "|-", label="std-deviation")
 

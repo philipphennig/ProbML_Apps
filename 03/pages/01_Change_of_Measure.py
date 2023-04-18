@@ -17,9 +17,10 @@ st.set_page_config(
     page_icon="🧊",
     layout="wide",
     initial_sidebar_state="expanded",
-    menu_items={"About": "(c) Philipp Hennig, 2023"}
+    menu_items={"About": "(c) Philipp Hennig, 2023"},
 )
 
+jax.config.update("jax_enable_x64", True)
 
 
 def sigmoid(loc: float, gain: float) -> Callable:
