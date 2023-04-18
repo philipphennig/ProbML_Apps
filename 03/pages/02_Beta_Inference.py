@@ -119,4 +119,4 @@ if Laplace:
 
     ax.legend(loc="lower right", fontsize="x-small")
 
-st.pyplot(fig,kwargs={"format":"svg"})
+st.pyplot(fig)
