@@ -2,8 +2,6 @@ import streamlit as st
 from typing import Callable
 from matplotlib_inline.backend_inline import set_matplotlib_formats
 
-
-import ipywidgets as widgets
 from jax import numpy as jnp
 from jax import vmap, value_and_grad
 from matplotlib import pyplot as plt
