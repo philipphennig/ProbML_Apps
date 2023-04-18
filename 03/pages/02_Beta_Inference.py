@@ -12,10 +12,6 @@ from jax.scipy.stats import norm, beta
 
 plt.rcParams.update(bundles.beamer_moml())
 plt.rcParams.update({"figure.figsize":(6,3)})
-# plt.rcParams.update({"figure.dpi": 300})
-
-def hessian(f):  # basic implementation of the Hessian
-    return jacfwd(jacrev(f))
 
 st.set_page_config(
     page_title="Conjugate Priors",
@@ -83,7 +79,7 @@ ax.plot([0, 1], [1, 0], linewidth=0.5, color=rgb.tue_gray)
 if (a > 1) & (b > 1):
     mode_p = (a - 1) / (a + b - 2)
     # Laplace approximation:
-    hess_logpmode = hessian(lambda x: beta.logpdf(x, a, b))(mode_p)
+    hess_logpmode = jax.hessian(lambda x: beta.logpdf(x, a, b))(mode_p)
     Laplace_std = jnp.sqrt(1.0 / -hess_logpmode)
 
     ax.plot(
