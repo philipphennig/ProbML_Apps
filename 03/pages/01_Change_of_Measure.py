@@ -29,13 +29,14 @@ c1.write("Feature 1")
 l1 = c1.slider(
     "Location", key="loc1", min_value=-3.0, max_value=3.0, value=-1.0, step=0.1
 )
-g1 = c1.select_slider(
-    "Gain",
-    key="gain1",
-    options=jnp.logspace(-2, 1, 100),
-    format_func=lambda x: f"{x:2.2e}",
-    value=1,
-)
+g1 = c1.slider("Gain", key="gain1", min_value=0.01, max_value=10.0, value=1.0, step=0.1)
+# g1 = c1.select_slider(
+#     "Gain",
+#     key="gain1",
+#     options=jnp.logspace(-2, 1, 100),
+#     format_func=lambda x: f"{x:2.2e}",
+#     value=1,
+# )
 
 c2 = st.sidebar.container()
 c2.write("Feature 2")
@@ -43,13 +44,14 @@ c2.write("Feature 2")
 l2 = c2.slider(
     "Location", key="loc2", min_value=-3.0, max_value=3.0, value=0.0, step=0.1
 )
-g2 = c2.select_slider(
-    "Gain",
-    key="gain2",
-    options=jnp.logspace(-2, 1, 100),
-    format_func=lambda x: f"{x:2.2e}",
-    value=1,
-)
+g2 = c2.slider("Gain", key="gain2", min_value=0.01, max_value=10.0, value=1.0, step=0.1)
+# g2 = c2.select_slider(
+#     "Gain",
+#     key="gain2",
+#     options=jnp.logspace(-2, 1, 100),
+#     format_func=lambda x: f"{x:2.2e}",
+#     value=1,
+# )
 
 c3 = st.sidebar.container()
 c3.write("Feature 3")
@@ -57,13 +59,14 @@ c3.write("Feature 3")
 l3 = c3.slider(
     "Location", key="loc3", min_value=-3.0, max_value=3.0, value=1.0, step=0.1
 )
-g3 = c3.select_slider(
-    "Gain",
-    key="gain3",
-    options=jnp.logspace(-2, 1, 100),
-    format_func=lambda x: f"{x:2.2e}",
-    value=1,
-)
+g3 = c3.slider("Gain", key="gain3", min_value=0.01, max_value=10.0, value=1.0, step=0.1)
+# g3 = c3.select_slider(
+#     "Gain",
+#     key="gain3",
+#     options=jnp.logspace(-2, 1, 100),
+#     format_func=lambda x: f"{x:2.2e}",
+#     value=1,
+# )
 
 show_features = st.sidebar.checkbox("show features", value=True)
 
