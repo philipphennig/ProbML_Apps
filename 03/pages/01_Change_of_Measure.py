@@ -20,10 +20,8 @@ st.set_page_config(
     menu_items={"About": "(c) Philipp Hennig, 2023"},
 )
 
-
 def sigmoid(loc: float, gain: float) -> Callable:
     return value_and_grad(lambda a: 1.0 / (1.0 + jnp.exp(-(a - loc) / gain)))
-
 
 c1 = st.sidebar.container()
 c1.write("Feature 1")
