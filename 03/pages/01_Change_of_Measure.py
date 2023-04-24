@@ -140,6 +140,28 @@ if corr:
     p = norm.pdf(x, loc=0, scale=1)
     # p_y(y=u(x)) = p_x(v(y)) * |du/dx|^{-1} for v(y) = u^{-1}(x)
     py = p / jnp.abs(df)
+
+    ax.plot(p - 3, f, "-.", color=rgb.tue_orange, label="$p_x(y=f(x))$")
+    ax.plot(py - 3, f, "-", color=rgb.tue_green, label="$p_y(y=f(x))$")
+    ```
+        """
+    )
+else:
+    st.markdown(
+        """
+    ```python
+    from jax import vmap, value_and_grad
+    def sigmoid(loc: float, gain: float) -> Callable:
+        return value_and_grad(lambda a: 1.0 / (1.0 + jnp.exp(-(a - loc) / gain)))
+
+    Fs = jnp.asarray([vmap(sigmoid(l, g))(x) for (l, g) in zip(locs, gains)])  # [3, 2, N]
+    F = Fs.sum(axis=0)
+    # unpack
+    f = F[0, :]
+    df = F[1, :]
+
+    p = norm.pdf(x, loc=0, scale=1)
+    ax.plot(p - 3, f, "-.", color=rgb.tue_orange, label="$p_x(y=f(x))$")
     ```
         """
     )
