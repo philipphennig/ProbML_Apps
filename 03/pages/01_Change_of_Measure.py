@@ -20,8 +20,10 @@ st.set_page_config(
     menu_items={"About": "(c) Philipp Hennig, 2023"},
 )
 
+
 def sigmoid(loc: float, gain: float) -> Callable:
     return value_and_grad(lambda a: 1.0 / (1.0 + jnp.exp(-(a - loc) / gain)))
+
 
 c1 = st.sidebar.container()
 c1.write("Feature 1")
@@ -120,3 +122,24 @@ ax.set_ylim([-0.1, 3.1])
 ax.legend(loc="center right")
 
 st.pyplot(fig)
+
+if corr:
+    st.markdown(
+        """
+    ```python
+    from jax import vmap, value_and_grad
+    def sigmoid(loc: float, gain: float) -> Callable:
+        return value_and_grad(lambda a: 1.0 / (1.0 + jnp.exp(-(a - loc) / gain)))
+
+    Fs = jnp.asarray([vmap(sigmoid(l, g))(x) for (l, g) in zip(locs, gains)])  # [3, 2, N]
+    F = Fs.sum(axis=0)
+    # unpack
+    f = F[0, :]
+    df = F[1, :]
+
+    p = norm.pdf(x, loc=0, scale=1)
+    # p_y(y=u(x)) = p_x(v(y)) * |du/dx|^{-1} for v(y) = u^{-1}(x)
+    py = p / jnp.abs(df)
+    ```
+        """
+    )
