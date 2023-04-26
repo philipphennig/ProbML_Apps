@@ -113,4 +113,4 @@ st.markdown(
     $$"""
 )
 
-st.pyplot(fig, kwargs={"format": "svg"})
+st.pyplot(fig)
