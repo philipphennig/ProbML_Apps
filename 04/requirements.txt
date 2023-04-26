@@ -3,3 +3,5 @@ jaxlib
 typing
 matplotlib
 tueplots
+scipy
+mpltern
