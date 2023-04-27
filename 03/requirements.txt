@@ -3,3 +3,4 @@ jaxlib
 typing
 matplotlib
 tueplots
+streamlit
