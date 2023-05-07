@@ -95,6 +95,7 @@ if (a > 1) & (b > 1):
         ax.plot(
             x,
             norm.pdf(x, loc=mode_p, scale=Laplace_std),
+            color=rgb.tue_blue,
             label="Laplace's approximation",
         )
 
@@ -116,7 +117,7 @@ if Laplace:
             return beta.logpdf(mode_p, a, b) + 0.5 * (x - mode_p) ** 2 * hess_logpmode
 
         ax.axvline(mode_p, linestyle="--", color=rgb.tue_red, label="mode")
-        ax.plot(x, quad(x), label="Laplace's approximation")
+        ax.plot(x, quad(x), color=rgb.tue_blue, label="Laplace's approximation")
 
     ax.legend(loc="lower right", fontsize="x-small")
 
