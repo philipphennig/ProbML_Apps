@@ -5,3 +5,4 @@ matplotlib
 tueplots
 scipy
 mpltern
+streamlit

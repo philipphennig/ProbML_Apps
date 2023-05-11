@@ -19,6 +19,38 @@ st.set_page_config(
     initial_sidebar_state="expanded",
     menu_items={"About": "(c) Philipp Hennig, 2023"},
 )
+st.title('Change of Measure')
+st.markdown('''
+            In this app, we want to visualize the theorem from slide 19 in order to get a better understanding of it.  
+            First, recall the theorem regarding the change of variable for probability density functions, which stated
+            ''')
+st.latex(r'''
+        p_Y(y) = p_X(v(y)) \cdot \left|\frac{dv(y)}{dy}\right| = p_X(v(y)) \cdot \left|\frac{du(x)}{dx}\right|^{-1},
+        ''')
+st.markdown('''
+            whereby
+            * $X$ is a random variable with the probability density function $p_X(x)$ and
+            * $Y = u(X)$ is a monotonic differentiable function with inverse $X = v(Y)$.
+
+            The solid red line in the plot is a monotonically increasing function $f(x)$. In
+            the notation of the theorem, this function corresponds to $Y = u(X)$. Since the function is strictly monotonic, 
+            an inverse function $X = v(Y)$ exists. The function $f(x)$ was computed by taking
+            the sum of three sigmoids (solid gray lines in the plot). Note that the sum of sigmoids is always monotically
+            increasing. On the left, you can play around with the locations and gains of the three sigmoids to get
+            a different resulting function $f(x)$. The dashed gray lines simply represent the derivatives of the 
+            sigmoids. The green line at the bottom is a Gaussian distribution over $X$.
+            
+            The orange dashed line represents a naive approach to compute $p_Y(y)$: For each point $y \in Y$, we look
+            up its inverse $v(y)$ with the help of the function $f(x)$. With the Gaussian distribution, 
+            we can look up the probability $p_X(v(y))$ of that value. By plotting $p_X(v(y))$ for each $y \in Y$, we
+            get the orange dashed line on the y-axis of the plot.
+            
+            As you have probably noticed, the integral over $f(x)$ is greater than 1. This, however, should not be
+            the case as densities always integrate to 1. In order to fix this,
+            we need to multiply $p_X(v(y))$ with the derivative of $v(y)$ for all $y \in Y$, as decribed in the theorem.
+            Doing this, we now get an integral much closer to 1. Activating the box "use correction" at the bottom left
+            of the page will conduct this computation and plot the resulting curve.
+            ''')
 
 
 def sigmoid(loc: float, gain: float) -> Callable:
@@ -97,8 +129,8 @@ py_int = jnp.sum(py) * 3 / (N - 1)
 
 fig, ax = plt.subplots()
 
-ax.text(-2.5, 2.5, f"The integral over p_x(x) is approximately {px_int:.2f}.")
-ax.text(-2.5, 2.25, f"The integral over f(x) is approximately {f_int:.2f}.")
+ax.text(-2.5, 2.5, f"The integral over $p_x(x)$ is approximately {px_int:.2f}.")
+ax.text(-2.5, 2.25, f"The integral over $f(x)$ is approximately {f_int:.2f}.")
 
 # plot the features:
 if show_features:
@@ -111,7 +143,7 @@ ax.plot(x, p, "-", color=rgb.tue_gold, label="$p(x)$")
 ax.plot(p - 3, f, "-.", color=rgb.tue_orange, label="$p_x(y=f(x))$")
 if corr:
     ax.plot(py - 3, f, "-", color=rgb.tue_green, label="$p_y(y=f(x))$")
-    ax.text(-2.5, 2.0, f"The integral over p_y(y) is approximately {py_int:.2f}.")
+    ax.text(-2.5, 2.0, f"The integral over $p_y(y)$ is approximately {py_int:.2f}.")
 ax.axvline(-3, color=rgb.tue_dark)
 ax.axhline(0, color=rgb.tue_dark)
 
