@@ -16,7 +16,7 @@ plt.rcParams.update(bundles.beamer_moml())
 
 from gaussians import Gaussian
 
-data = scipy.io.loadmat("../nlindata.mat")
+data = scipy.io.loadmat("nlindata.mat")
 X = data["X"]  # inputs
 Y = data["Y"][:, 0]  # outputs
 N = X.shape[0]
@@ -29,6 +29,8 @@ st.set_page_config(
     initial_sidebar_state="expanded",
     menu_items={"About": "(c) Philipp Hennig, 2023"},
 )
+
+# st.sidebar.title("Parametric Regression")
 
 st.markdown(
     """
@@ -294,10 +296,6 @@ select_data = st.sidebar.multiselect(
 
 X = X[select_data]
 Y = Y[select_data]
-
-
-st.sidebar.title("Lecture 06: Parametric Regression")
-
 
 phi_X = phi(X)
 F = phi_X.shape[1]

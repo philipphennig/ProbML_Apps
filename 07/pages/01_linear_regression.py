@@ -30,7 +30,7 @@ st.set_page_config(
     menu_items={"About": "(c) Philipp Hennig, 2023"},
 )
 
-st.sidebar.title("Lecture 06: Parametric Regression")
+# st.sidebar.title("Lecture 06: Parametric Regression")
 
 M0 = st.sidebar.slider("Mu_0", min_value=-2., max_value=2., value=0., step=.1)
 M1 = st.sidebar.slider("Mu_1", min_value=-2., max_value=2., value=0., step=.1)

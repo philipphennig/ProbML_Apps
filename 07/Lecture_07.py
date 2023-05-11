@@ -19,11 +19,6 @@ plt.rcParams.update(bundles.beamer_moml())
 
 from gaussians import Gaussian
 
-data = scipy.io.loadmat("../nlindata.mat")
-X = data["X"]  # inputs
-Y = data["Y"][:, 0]  # outputs
-sigma = data["sigma"][0].flatten()
-
 st.set_page_config(
     page_title="Lecture 06",
     page_icon="🧊",
@@ -31,7 +26,7 @@ st.set_page_config(
     menu_items={"About": "(c) Philipp Hennig, 2023"},
 )
 
-st.sidebar.title("Lecture 06: Parametric Regression")
+# st.sidebar.title("Lecture 06: Parametric Regression")
 
 st.markdown("Sampling from a Gaussian distribution (given [standard Gaussian](https://upload.wikimedia.org/wikipedia/commons/1/1f/Box-Muller\_transform\_visualisation.svg) RVs)")
 
