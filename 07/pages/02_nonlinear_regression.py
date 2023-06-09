@@ -294,8 +294,8 @@ select_data = st.sidebar.multiselect(
     default = [i for i in range(N)]
     )
 
-X = X[select_data]
-Y = Y[select_data]
+X = X[select_data, :]
+Y = Y[[select_data]]
 
 phi_X = phi(X)
 F = phi_X.shape[1]

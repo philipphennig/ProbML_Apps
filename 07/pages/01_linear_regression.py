@@ -45,8 +45,8 @@ select_data = st.sidebar.multiselect(
     default = [i for i in range(N)]
     )
 
-X_select = X[select_data]
-Y_select = Y[select_data]
+X_select = X[select_data, :]
+Y_select = Y[[select_data]]
 
 prior = Gaussian(mu=jnp.asarray([M0,M1]), Sigma=jnp.asarray([[S1,rho],[rho,S2]]))
 phi = lambda x: jnp.hstack([jnp.ones_like(x), x])
