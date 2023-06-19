@@ -66,6 +66,12 @@ def relu_features(x, num_features=2):
         * (x - jnp.linspace(-8, 8, num_features)),
     ) / jnp.sqrt(num_features)
 
+def one_sided_relu(x, num_features=2):
+    """Feature map for a ReLU basis function."""
+    # output shape: (n_samples, order)
+    return jnp.maximum(
+        0,(x - jnp.linspace(-8, 8, num_features)),
+    ) / jnp.sqrt(num_features)
 
 def cosine_features(x, num_features=2, ell=1.0):
     """Feature map for a cosine basis function."""
@@ -113,12 +119,13 @@ select_features = st.sidebar.selectbox(
     [
         "Polynomial",
         "Gaussian",
+        "Switch",
         "ReLU",
+        "one-sided ReLU",
+        "Step",
         "Cosine",
         "Trig",
         "Sigmoid",
-        "Step",
-        "Switch",
     ],
 )
 
@@ -184,6 +191,22 @@ elif select_features == "ReLU":
     ```
     '''
     )
+
+elif select_features == "one-sided ReLU":
+    phi = functools.partial(one_sided_relu, num_features=n_features)
+    st.markdown(
+        '''
+    ```python
+    def one_sided_relu(x, num_features=2):
+        """Feature map for a ReLU basis function."""
+        # output shape: (n_samples, order)
+        return jnp.maximum(
+            0,(x - jnp.linspace(-8, 8, num_features)),
+        ) / jnp.sqrt(num_features)
+    ```
+    '''
+    )
+
 elif select_features == "Cosine":
     ell = st.sidebar.slider(
         "Select length-scale for cosine features",
@@ -321,17 +344,26 @@ x = jnp.linspace(-8, 8, 300)[:, None]
 
 if plot_features:
     # plot the basis functions
-    lines = ax.plot(x[:, 0], phi(x) * jnp.sqrt(F), color=rgb.tue_gray, alpha=0.2)
+    lines = ax.plot(x[:, 0], phi(x) * jnp.sqrt(F), color=rgb.tue_green, alpha=0.8)
 
 if plot_prior:
     # plot the prior
     prior_x = phi(x) @ prior
-    ax.plot(x[:, 0], prior_x.mu, color=rgb.tue_gray, label="prior")
+    ax.plot(x[:, 0], prior_x.mu, color=rgb.tue_dark, label="prior")
     ax.fill_between(
         x[:, 0],
         prior_x.mu - 2 * prior_x.std,
         prior_x.mu + 2 * prior_x.std,
-        color=rgb.tue_gray,
+        color=rgb.tue_dark,
+        alpha=0.2,
+    )
+
+    # plot posterior samples
+    key = jax.random.PRNGKey(0)
+    ax.plot(
+        x[:, 0],
+        phi(x) @ prior.sample(key, num_samples=30).T,
+        color=rgb.tue_dark,
         alpha=0.2,
     )
 

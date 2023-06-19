@@ -42,7 +42,6 @@ rho = st.sidebar.slider("rho", min_value=-1., max_value=1., value=0., step=.1)
 select_data = st.sidebar.multiselect(
     "Select data",
     options = jnp.arange(N),
-    default = [i for i in range(N)]
     )
 
 X_select = X[select_data]
@@ -92,7 +91,7 @@ for i in range(1,3):
         linewidth= 1 / i,
     )
 
-ax.plot(w_samples[:, 0], w_samples[:, 1], "o", color=rgb.tue_gray, ms=2, alpha=1.0, mec="none")
+ax.plot(w_samples[:, 0], w_samples[:, 1], "o", color=rgb.tue_dark, ms=2, alpha=1.0, mec="none")
 
 if len(select_data) > 0:
 
@@ -134,15 +133,15 @@ ax = axs[1]
 ax.errorbar(
     X, Y, yerr=sigma * jnp.ones_like(Y), fmt="o", ms=2, color=rgb.tue_dark
 )
-ax.plot(x, f_prior.mu, color=rgb.tue_gray, label="prior")
+ax.plot(x, f_prior.mu, color=rgb.tue_dark, label="prior")
 ax.fill_between(
     x[:, 0],
     f_prior.mu - 2 * std_f,
     f_prior.mu + 2 * std_f,
-    color=rgb.tue_gray,
+    color=rgb.tue_dark,
     alpha=0.5,
 )
-ax.plot(x, phi(x) @ w_samples.T, color=rgb.tue_gray, alpha=0.4)
+ax.plot(x, phi(x) @ w_samples.T, color=rgb.tue_dark, alpha=0.4)
 
 
 if len(select_data) > 0:
