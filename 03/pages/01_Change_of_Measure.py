@@ -45,7 +45,7 @@ st.markdown('''
             we can look up the probability $p_X(v(y))$ of that value. By plotting $p_X(v(y))$ for each $y \in Y$, we
             get the orange dashed line on the y-axis of the plot.
             
-            As you have probably noticed, the integral over $f(x)$ is greater than 1. This, however, should not be
+            As you have probably noticed, the integral over $p_X(y)$ is smaller than 1. This, however, should not be
             the case as densities always integrate to 1. In order to fix this,
             we need to multiply $p_X(v(y))$ with the derivative of $v(y)$ for all $y \in Y$, as decribed in the theorem.
             Doing this, we now get an integral much closer to 1. Activating the box "use correction" at the bottom left
@@ -122,15 +122,15 @@ p = norm.pdf(x, loc=0, scale=1)
 # p_y(y=u(x)) = p_x(v(y)) * |du/dx|^{-1} for v(y) = u^{-1}(x)
 py = p / jnp.abs(df)
 
-# = sum p[i] * d(x[i]), with each "box" d(x[i]) of size 6 / N
-px_int = jnp.sum(p) * 6 / (N - 1)
-f_int = jnp.sum(f) * 3 / (N - 1)
-py_int = jnp.sum(py) * 3 / (N - 1)
+# integrals
+px_int = jnp.trapz(y=p, x=x)
+f_int = jnp.trapz(y=p, x=f)
+py_int = jnp.trapz(y=py, x=f)
 
 fig, ax = plt.subplots()
 
-ax.text(-2.5, 2.5, f"The integral over $p_x(x)$ is approximately {px_int:.2f}.")
-ax.text(-2.5, 2.25, f"The integral over $f(x)$ is approximately {f_int:.2f}.")
+ax.text(-2.5, 2.5, f"The integral over $p(x)$ is approximately {px_int:.2f}.")
+ax.text(-2.5, 2.25, f"The integral over $p_x(y)$ is approximately {f_int:.2f}.")
 
 # plot the features:
 if show_features:
